@@ -9,5 +9,15 @@
 
     <context:annotation-config/>
 
+    <!-- Controllers START -->
     <bean name="/hello" class="com.hyunbogi.springmvc.controller.HelloController"/>
+    <!-- Controllers END -->
+
+    <!-- Views START -->
+    <bean id="helloMarshallingView" class="org.springframework.web.servlet.view.xml.MarshallingView">
+        <property name="marshaller" ref="marshaller"/>
+        <property name="modelKey" value="info"/>
+    </bean>
+    <bean id="helloPdfView" class="com.hyunbogi.springmvc.view.HelloPdfView"/>
+    <!-- Views START END -->
 </beans>

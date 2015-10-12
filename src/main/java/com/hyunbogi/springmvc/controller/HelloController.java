@@ -1,6 +1,6 @@
 package com.hyunbogi.springmvc.controller;
 
-import com.hyunbogi.springmvc.HelloSpring;
+import com.hyunbogi.springmvc.view.HelloPdfView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
@@ -12,16 +12,15 @@ import java.util.Map;
 
 public class HelloController implements Controller {
     @Autowired
-    private HelloSpring helloSpring;
+    private HelloPdfView helloPdfView;
 
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String name = request.getParameter("name");
-        String message = helloSpring.sayHello(name);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("message", message);
+        model.put("message", "Hello " + name);
 
-        return new ModelAndView("/WEB-INF/page/hello.jsp", model);
+        return new ModelAndView(helloPdfView, model);
     }
 }

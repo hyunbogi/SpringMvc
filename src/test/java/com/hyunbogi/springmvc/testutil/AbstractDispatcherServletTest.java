@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class AbstractDispatcherServletTest implements AfterRunService {
+public abstract class AbstractDispatcherServletTest implements AfterRunService {
     protected MockHttpServletRequest request;
     protected MockHttpServletResponse response;
     protected MockServletConfig config = new MockServletConfig("spring");
