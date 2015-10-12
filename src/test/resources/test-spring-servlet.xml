@@ -9,6 +9,5 @@
 
     <context:annotation-config/>
 
-    <!-- For Test -->
     <bean name="/hello" class="com.hyunbogi.springmvc.controller.HelloController"/>
 </beans>
