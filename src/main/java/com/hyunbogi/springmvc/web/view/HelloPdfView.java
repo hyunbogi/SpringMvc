@@ -1,4 +1,4 @@
-package com.hyunbogi.springmvc.view;
+package com.hyunbogi.springmvc.web.view;
 
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;

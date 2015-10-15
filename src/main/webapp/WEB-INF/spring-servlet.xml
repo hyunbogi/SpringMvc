@@ -10,7 +10,7 @@
     <context:annotation-config/>
 
     <!-- Controllers START -->
-    <bean name="/hello" class="com.hyunbogi.springmvc.controller.HelloController"/>
+    <bean name="/hello" class="com.hyunbogi.springmvc.web.controller.HelloController"/>
     <!-- Controllers END -->
 
     <!-- Views START -->
@@ -18,6 +18,6 @@
         <property name="marshaller" ref="marshaller"/>
         <property name="modelKey" value="info"/>
     </bean>
-    <bean id="helloPdfView" class="com.hyunbogi.springmvc.view.HelloPdfView"/>
+    <bean id="helloPdfView" class="com.hyunbogi.springmvc.web.view.HelloPdfView"/>
     <!-- Views START END -->
 </beans>

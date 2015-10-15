@@ -1,6 +1,6 @@
-package com.hyunbogi.springmvc.controller;
+package com.hyunbogi.springmvc.web.controller;
 
-import com.hyunbogi.springmvc.view.HelloPdfView;
+import com.hyunbogi.springmvc.web.view.HelloPdfView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
