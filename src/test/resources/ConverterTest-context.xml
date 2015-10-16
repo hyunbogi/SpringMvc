@@ -6,8 +6,14 @@
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context.xsd">
-
     <context:annotation-config/>
 
-    <bean name="/hello" class="com.hyunbogi.springmvc.web.controller.HelloController"/>
+    <bean class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.hyunbogi.springmvc.web.converter.LevelToStringConverter"/>
+                <bean class="com.hyunbogi.springmvc.web.converter.StringToLevelConverter"/>
+            </set>
+        </property>
+    </bean>
 </beans>

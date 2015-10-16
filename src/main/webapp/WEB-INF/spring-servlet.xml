@@ -2,22 +2,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context.xsd">
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
+    <context:component-scan base-package="com.hyunbogi.springmvc.web.controller"/>
 
-    <context:annotation-config/>
-
-    <!-- Controllers START -->
-    <bean name="/hello" class="com.hyunbogi.springmvc.web.controller.HelloController"/>
-    <!-- Controllers END -->
-
-    <!-- Views START -->
-    <bean id="helloMarshallingView" class="org.springframework.web.servlet.view.xml.MarshallingView">
-        <property name="marshaller" ref="marshaller"/>
-        <property name="modelKey" value="info"/>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/page/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
-    <bean id="helloPdfView" class="com.hyunbogi.springmvc.web.view.HelloPdfView"/>
-    <!-- Views START END -->
 </beans>

@@ -2,14 +2,16 @@ package learning;
 
 import com.hyunbogi.springmvc.domain.Level;
 import com.hyunbogi.springmvc.testutil.AbstractDispatcherServletTest;
-import com.hyunbogi.springmvc.web.properyeditor.LevelPropertyEditor;
+import com.hyunbogi.springmvc.web.converter.LevelPropertyEditor;
 import org.junit.Test;
 import org.springframework.beans.propertyeditors.CharsetEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletException;
 import java.beans.PropertyEditorSupport;
@@ -50,7 +52,7 @@ public class ProperyEditorTest extends AbstractDispatcherServletTest {
     @Test
     public void memberController() throws ServletException, IOException {
         setClasses(MemberController.class);
-        initRequest("/add").addParameter("id", "1000").addParameter("age", "1000");
+        initRequest("/member/add").addParameter("id", "1000").addParameter("age", "1000");
         runService();
 
         Member member = (Member) getModelAndView().getModel().get("member");
@@ -58,16 +60,49 @@ public class ProperyEditorTest extends AbstractDispatcherServletTest {
         assertThat(member.age, is(200));
     }
 
+    @Test
+    public void charsetInParameter() throws ServletException, IOException {
+        setClasses(MemberController.class);
+        initRequest("/member/charsettest").addParameter("charset", "UTF-8");
+        runService();
+
+        Charset charset = (Charset) getModelAndView().getModel().get("charset");
+        assertThat(charset.name(), is("UTF-8"));
+    }
+
+    @Test
+    public void levelInParameter() throws ServletException, IOException {
+        setClasses(MemberController.class);
+        initRequest("/member/leveltest").addParameter("level", "1");
+        runService();
+
+        assertThat(getModelAndView().getModel().get("level"), is(Level.BASIC));
+    }
+
     @Controller
+    @RequestMapping("/member")
     private static class MemberController {
         @RequestMapping("/add")
         public String add(@ModelAttribute Member member) {
             return "temp";
         }
 
+        @RequestMapping("/charsettest")
+        public String charset(@RequestParam Charset charset, Model model) {
+            model.addAttribute("charset", charset);
+            return "temp";
+        }
+
+        @RequestMapping("/leveltest")
+        public String level(@RequestParam Level level, Model model) {
+            model.addAttribute("level", level);
+            return "temp";
+        }
+
         @InitBinder
         public void initBinder(WebDataBinder dataBinder) {
             dataBinder.registerCustomEditor(int.class, "age", new MinMaxPropertyEditor(0, 200));
+            dataBinder.registerCustomEditor(Level.class, new LevelPropertyEditor());
         }
     }
 
